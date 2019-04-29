@@ -53,11 +53,12 @@ public class ImagePreview extends JComponent
         }
     }
 
+    //This method's complexity was reduced by changing the binary if statements to an if-else for Assignment7 Task1
     public void paintComponent(Graphics g) {
         if (thumbnail == null) {
             loadImage();
         }
-        if (thumbnail != null) {
+        else {
             int x = getWidth()/2 - thumbnail.getIconWidth()/2;
             int y = getHeight()/2 - thumbnail.getIconHeight()/2;
 

@@ -8,7 +8,8 @@
  */
 package main.java.memoranda.interfaces;
 
-import main.java.memoranda.HistoryItem;
+import main.java.memoranda.History;
+import main.java.memoranda.History.HistoryItem;
 
 /**
  * 

@@ -20,7 +20,9 @@ import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.KeyStroke;
 
+import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.interfaces.IHistoryListener;
+import main.java.memoranda.interfaces.INote;
 import main.java.memoranda.interfaces.IProject;
 import main.java.memoranda.util.Local;
 /**
@@ -33,7 +35,7 @@ public class History {
     static int p = -1;
     static Vector historyListeners = new Vector();
     static Object next = null;
-    static Object prev = null;     
+    static Object prev = null;
     
     public static void add(HistoryItem item) {
         if (prev != null)   
@@ -217,5 +219,38 @@ public class History {
             }
         }
     }
+    
+    //TASK 3-2 SMELL BETWEEN CLASSES <Moving class HistoryItem to be an inner class of History>
+    public class HistoryItem {
+        
+        private CalendarDate _date;
+        private IProject _project;
+        /**
+         * Constructor for HistoryItem.
+         */
+        public HistoryItem(CalendarDate date, IProject project) {
+            _date = date;
+            _project = project;
+        }
+        
+        public HistoryItem(INote note) {
+            _date = note.getDate();
+            _project = note.getProject();
+        }
+        
+        public CalendarDate getDate() {
+           return _date;
+        }
+        
+        public IProject getProject() {
+           return _project;
+        }
+        
+        public boolean equals(HistoryItem i) {
+           return i.getDate().equals(_date) && i.getProject().getID().equals(_project.getID());
+        } 
+
+    }
+
 
 }

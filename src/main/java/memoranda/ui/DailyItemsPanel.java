@@ -26,7 +26,7 @@ import main.java.memoranda.CurrentNote;
 import main.java.memoranda.CurrentProject;
 import main.java.memoranda.EventsScheduler;
 import main.java.memoranda.History;
-import main.java.memoranda.HistoryItem;
+import main.java.memoranda.History.HistoryItem;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
@@ -295,7 +295,10 @@ public class DailyItemsPanel extends JPanel {
         currentNote = CurrentProject.getNoteList().getNoteForDate(CurrentDate.get());
 		CurrentNote.set(currentNote,true);
         editorPanel.setDocument(currentNote);
-        History.add(new HistoryItem(CurrentDate.get(), CurrentProject.get()));
+        //TASK 3-2 SMELL BETWEEN CLASSES <Must call inner class HistoryItem differently>
+        History h = new History();
+        History.HistoryItem hi = h.new HistoryItem(CurrentDate.get(), CurrentProject.get());
+        History.add(hi);
         cmainPanel.add(mainTabsPanel, BorderLayout.CENTER);
         mainTabsPanel.add(eventsTabbedPane, "EVENTSTAB");
         mainTabsPanel.add(tasksTabbedPane, "TASKSTAB");
@@ -311,7 +314,10 @@ public class DailyItemsPanel extends JPanel {
         Cursor cur = App.getFrame().getCursor();
         App.getFrame().setCursor(waitCursor);
         if (!changedByHistory) {
-           History.add(new HistoryItem(newdate, CurrentProject.get()));
+          //TASK 3-2 SMELL BETWEEN CLASSES <Must call inner class HistoryItem differently>
+            History h = new History();
+            History.HistoryItem hi = h.new HistoryItem(newdate, CurrentProject.get());
+            History.add(hi);
 		}
         if (!dateChangedByCalendar) {
             calendarIgnoreChange = true;
@@ -367,8 +373,12 @@ public class DailyItemsPanel extends JPanel {
 
         Cursor cur = App.getFrame().getCursor();
         App.getFrame().setCursor(waitCursor);
-        if (!changedByHistory)
-            History.add(new HistoryItem(CurrentDate.get(), newprj));
+        if (!changedByHistory) {
+            //TASK 3-2 SMELL BETWEEN CLASSES <Must call inner class HistoryItem differently>
+            History h = new History();
+            History.HistoryItem hi = h.new HistoryItem(CurrentDate.get(), newprj);
+            History.add(hi);
+        }
         if (editorPanel.isDocumentChanged())
             saveNote();
         /*if ((currentNote != null) && !changedByHistory && !addedToHistory)

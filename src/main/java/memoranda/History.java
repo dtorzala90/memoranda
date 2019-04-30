@@ -220,7 +220,10 @@ public class History {
         }
     }
     
-    //TASK 3-2 SMELL BETWEEN CLASSES <Moving class HistoryItem to be an inner class of History>
+    // TASK 3-2 SMELL BETWEEN CLASSES <Moving class HistoryItem to be an inner class of History
+    // I believe this is a type of code smell called Data Class. Basically, the HistoryItem
+    // class did not do enough to warrant its own class. It should be coupled with the Histor
+    // class for simplicity's sake.>
     public class HistoryItem {
         
         private CalendarDate _date;

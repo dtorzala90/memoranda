@@ -14,6 +14,10 @@ import javax.swing.filechooser.FileFilter;
 
 import main.java.memoranda.util.Local;
 
+enum FileType
+{
+    RTF
+}
 /**
  *
  */
@@ -45,18 +49,15 @@ public class AllFilesFilter extends FileFilter {
     /**
      * @see javax.swing.filechooser.FileFilter#accept(java.io.File)
      */
+    //TASK 3-1 SMELL WITHIN A CLASS
     public boolean accept(File f) {
         if (f.isDirectory())
             return true;
         String ext = getExtension(f);
-        if (_type.equals(RTF))
-            return ext.equals("rtf");
-        else if (_type.equals(ZIP))
-            return ext.equals("zip");
+        if (_type.equals(RTF) || _type.equals(ZIP) || _type.equals(JAR))
+            return ext.equalsIgnoreCase(_type);
         else if (_type.equals(EXE))
             return (ext.equals("exe") || ext.equals("com") || ext.equals("bat"));
-        else if (_type.equals(JAR))
-            return ext.equals("jar");
         else if (_type.equals(WAV))
             return (ext.equals("wav") || ext.equals("au"));
         else if (_type.equals(XHTML))
